@@ -1,0 +1,22 @@
+# Dockerfile.rails
+FROM ruby:latest AS rails-docker
+
+# Default directory
+ENV INSTALL_PATH /opt/app
+RUN mkdir -p $INSTALL_PATH
+
+# Install rails
+RUN gem install rails bundler
+WORKDIR /opt/app
+
+# Run a shell
+CMD ["sh", "-c", "rails new --skip-bundle $RAILS_APP_NAME -d=$DATA_SERVER --api && \
+                  cp database_$DATA_SERVER.yml $RAILS_APP_NAME/config/database.yml && \
+                  cp .env $RAILS_APP_NAME/ && \
+                  cp Gemfile $RAILS_APP_NAME/ && \
+                  cp .gitignore $RAILS_APP_NAME/ && \
+                  chmod -R 777 $RAILS_APP_NAME"]  # Thay đổi quyền truy cập của thư mục
+
+# CMD ["sh", "-c", "rails new --skip-bundle $RAILS_APP_NAME -d=$DATA_SERVER && \
+# not use touch $RAILS_APP_NAME/app/assets/config/manifest.js && \
+

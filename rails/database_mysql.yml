@@ -1,0 +1,16 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || '1205' %>
+  host: <%= ENV['DATABASE_HOST'] || '127.0.0.1' %>
+  port: 3306
+
+development:
+  <<: *default
+  database: <%= ENV['DEV_DATABASE_NAME'] || 'rails_dev' %>
+
+test:
+  <<: *default
+  database: <%= ENV['TEST_DATABASE_NAME'] || 'rails_test' %>

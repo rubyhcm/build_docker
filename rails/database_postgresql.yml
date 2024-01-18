@@ -1,0 +1,17 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("DB_POOL") { 5 } %>
+  username: <%= ENV['DATABASE_USER'] || 'postgres' %>
+  password: <%= ENV['DATABASE_PASSWORD'] || '1205' %>
+  host: <%= ENV['DATABASE_HOST'] || '127.0.0.1' %>
+  port: 5432
+
+development:
+  <<: *default
+  database: <%= ENV['DEV_DATABASE_NAME'] || 'rails_dev' %>
+
+test:
+  <<: *default
+  database: <%= ENV['TEST_DATABASE_NAME'] || 'rails_test' %>
+ 
